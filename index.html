@@ -4,51 +4,81 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#087fb5">
-<title>Ficha de demostración</title>
+<title>Lector QR — Demostración</title>
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#888;font-family:Arial,Helvetica,sans-serif;color:#111}
-header{background:#fff;text-align:center;padding:20px 14px 25px;margin:0 14px}
-.brand{font-size:27px;font-weight:800;letter-spacing:2px;color:#444}
-.mark{display:inline-block;width:32px;height:32px;vertical-align:middle;margin-right:8px;background:linear-gradient(135deg,#079aca 50%,#444 50%);transform:rotate(45deg);border-radius:5px}
-h1{font-size:clamp(24px,5vw,38px);margin:32px 0 0}
-main{max-width:900px;margin:28px auto;padding:0 14px}
-.sheet{background:#fff;padding:clamp(22px,5vw,48px);min-height:650px}
-.warning{background:#fff3cd;border:2px solid #d49a00;color:#664d03;padding:13px;text-align:center;font-weight:800;letter-spacing:.5px;margin-bottom:26px}
-h2{font-size:clamp(22px,4vw,30px);margin:0 0 48px}
-h3{font-size:25px;margin:0 0 20px}
-dl{display:grid;grid-template-columns:minmax(150px,38%) 1fr;gap:15px 12px;font-size:clamp(17px,3vw,25px);margin:0 0 45px}
-dt{font-weight:600}dd{margin:0;overflow-wrap:anywhere}
-.status{display:inline-block;color:#805600;background:#fff0c2;padding:5px 12px;font-weight:900;border-radius:4px}
-small{display:block;color:#555;line-height:1.5;margin-top:34px}
-footer{text-align:center;color:#fff;font-size:12px;padding:18px}
-@media(max-width:480px){dl{grid-template-columns:1fr;gap:5px}dd{margin-bottom:12px}h2{margin-bottom:32px}}
+*{box-sizing:border-box}body{margin:0;background:#eef2f5;color:#18212a;font-family:Arial,sans-serif}
+header{background:#fff;padding:22px 16px;text-align:center;border-bottom:4px solid #0788bd}
+.logo{font-size:25px;font-weight:800;color:#444;letter-spacing:2px}
+.logo span{color:#0788bd}
+h1{font-size:25px;margin:16px 0 5px}main{max-width:720px;margin:22px auto;padding:0 14px}
+.panel{background:#fff;border-radius:14px;padding:20px;box-shadow:0 3px 14px #00000012;margin-bottom:16px}
+.notice{background:#fff1c9;border:2px solid #d39a00;color:#634800;padding:13px;border-radius:8px;font-weight:800;text-align:center;line-height:1.4}
+p{line-height:1.5;color:#475569}.buttons{display:flex;gap:10px;flex-wrap:wrap}
+button{border:0;border-radius:9px;padding:13px 17px;font-size:16px;font-weight:700;background:#087fb5;color:#fff}
+button.secondary{background:#e6edf2;color:#243342}
+#reader{width:100%;max-width:480px;margin:16px auto}
+#result{display:none}.tag{display:inline-block;background:#fff0c2;color:#765000;padding:6px 10px;border-radius:5px;font-weight:800}
+dl{display:grid;grid-template-columns:minmax(130px,38%) 1fr;gap:13px;font-size:17px}
+dt{font-weight:700}dd{margin:0;overflow-wrap:anywhere}
+small{display:block;color:#64748b;line-height:1.5;margin-top:18px}
+footer{text-align:center;color:#64748b;font-size:12px;padding:18px}
 </style>
 </head>
 <body>
 <header>
-  <div class="brand"><span class="mark" aria-hidden="true"></span>FICHA DEMO</div>
-  <h1>Consulta de registro de ejemplo</h1>
+  <div class="logo">LECTOR <span>QR</span></div>
+  <h1>Escáner de códigos QR</h1>
+  <div>Herramienta de demostración independiente</div>
 </header>
 <main>
-<section class="sheet">
-  <div class="warning">DEMOSTRACIÓN — NO ES DOCUMENTO OFICIAL NI ACREDITA UNA LICENCIA</div>
-  <h2>REGISTRO DE EJEMPLO</h2>
-  <h3>DATOS:</h3>
-  <dl>
-    <dt>NRO. DE REGISTRO:</dt><dd>DEMO-0001</dd>
-    <dt>FECHA DE EMISIÓN:</dt><dd>—</dd>
-    <dt>FECHA DE VENCIMIENTO:</dt><dd>—</dd>
-    <dt>MODALIDAD:</dt><dd>Ejemplo no oficial</dd>
-    <dt>ESTADO:</dt><dd><span class="status">DEMO – NO VERIFICADO</span></dd>
-  </dl>
-  <h3>USUARIO:</h3>
-  <dl>
-    <dt>NOMBRE:</dt><dd>Álvaro Aldair Mauricio Piedra</dd>
-    <dt>DNI:</dt><dd>******59</dd>
-  </dl>
-  <small>Esta ficha es únicamente una maqueta visual. No consulta bases de datos, no valida identidad ni licencias, y no está afiliada ni autorizada por SUCAMEC. Para verificar una licencia real, utiliza exclusivamente los canales oficiales de la entidad.</small>
-</section>
+  <section class="panel">
+    <div class="notice">DEMOSTRACIÓN — NO ES UN SERVICIO OFICIAL NI VERIFICA LICENCIAS O IDENTIDADES</div>
+    <p>Pulsa el botón para permitir el uso de la cámara. Apunta al QR de prueba que contenga el texto <b>DEMO-0001</b>.</p>
+    <div class="buttons">
+      <button id="start">Activar cámara y escanear</button>
+      <button id="stop" class="secondary" disabled>Detener cámara</button>
+    </div>
+    <div id="reader"></div>
+    <p id="message" aria-live="polite">La cámara está apagada.</p>
+  </section>
+  <section id="result" class="panel">
+    <div class="notice">DEMO — NO VERIFICADO — SIN VALIDEZ OFICIAL</div>
+    <h2>Resultado de ejemplo</h2>
+    <p>El QR leído corresponde únicamente a un registro ficticio de prueba.</p>
+    <dl>
+      <dt>Código:</dt><dd>DEMO-0001</dd>
+      <dt>Nombre:</dt><dd>Usuario de demostración</dd>
+      <dt>Documento:</dt><dd>No registrado</dd>
+      <dt>Tipo de registro:</dt><dd>Ejemplo ilustrativo</dd>
+      <dt>Estado:</dt><dd><span class="tag">DEMO – NO VERIFICADO</span></dd>
+    </dl>
+    <small>Esta ficha no acredita permisos, licencias ni autorizaciones. No consulta ninguna base de datos y no está afiliada a SUCAMEC.</small>
+  </section>
 </main>
-<footer>Ficha de demostración independiente</footer>
+<footer>Proyecto educativo de demostración · No oficial</footer>
+<script>
+let scanner=null;
+const start=document.getElementById('start'), stop=document.getElementById('stop');
+const msg=document.getElementById('message'), result=document.getElementById('result');
+function scanned(text){
+  msg.textContent='QR leído: '+text;
+  if(text.trim()==='DEMO-0001'){result.style.display='block';result.scrollIntoView({behavior:'smooth'});}
+  else {result.style.display='none';msg.textContent='QR leído. El contenido es: '+text+' (no corresponde al código de demostración).';}
+}
+start.addEventListener('click', async()=>{
+  if(typeof Html5Qrcode==='undefined'){msg.textContent='No se pudo cargar el lector. Comprueba tu conexión a Internet y vuelve a intentar.';return;}
+  try{
+    scanner=new Html5Qrcode('reader');
+    await scanner.start({facingMode:'environment'},{fps:10,qrbox:{width:240,height:240}},scanned,()=>{});
+    msg.textContent='Cámara activa. Apunta al código QR.';
+    start.disabled=true;stop.disabled=false;
+  }catch(e){msg.textContent='No se pudo activar la cámara. Usa HTTPS y concede permiso de cámara al navegador.';}
+});
+stop.addEventListener('click',async()=>{
+  if(scanner){try{await scanner.stop();scanner.clear();}catch(e){}scanner=null;}
+  msg.textContent='La cámara está apagada.';start.disabled=false;stop.disabled=true;
+});
+</script>
 </body>
 </html>
