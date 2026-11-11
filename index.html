@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#087fb5">
+<title>Ficha de demostración</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#888;font-family:Arial,Helvetica,sans-serif;color:#111}
+header{background:#fff;text-align:center;padding:20px 14px 25px;margin:0 14px}
+.brand{font-size:27px;font-weight:800;letter-spacing:2px;color:#444}
+.mark{display:inline-block;width:32px;height:32px;vertical-align:middle;margin-right:8px;background:linear-gradient(135deg,#079aca 50%,#444 50%);transform:rotate(45deg);border-radius:5px}
+h1{font-size:clamp(24px,5vw,38px);margin:32px 0 0}
+main{max-width:900px;margin:28px auto;padding:0 14px}
+.sheet{background:#fff;padding:clamp(22px,5vw,48px);min-height:650px}
+.warning{background:#fff3cd;border:2px solid #d49a00;color:#664d03;padding:13px;text-align:center;font-weight:800;letter-spacing:.5px;margin-bottom:26px}
+h2{font-size:clamp(22px,4vw,30px);margin:0 0 48px}
+h3{font-size:25px;margin:0 0 20px}
+dl{display:grid;grid-template-columns:minmax(150px,38%) 1fr;gap:15px 12px;font-size:clamp(17px,3vw,25px);margin:0 0 45px}
+dt{font-weight:600}dd{margin:0;overflow-wrap:anywhere}
+.status{display:inline-block;color:#805600;background:#fff0c2;padding:5px 12px;font-weight:900;border-radius:4px}
+small{display:block;color:#555;line-height:1.5;margin-top:34px}
+footer{text-align:center;color:#fff;font-size:12px;padding:18px}
+@media(max-width:480px){dl{grid-template-columns:1fr;gap:5px}dd{margin-bottom:12px}h2{margin-bottom:32px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><span class="mark" aria-hidden="true"></span>FICHA DEMO</div>
+  <h1>Consulta de registro de ejemplo</h1>
+</header>
+<main>
+<section class="sheet">
+  <div class="warning">DEMOSTRACIÓN — NO ES DOCUMENTO OFICIAL NI ACREDITA UNA LICENCIA</div>
+  <h2>REGISTRO DE EJEMPLO</h2>
+  <h3>DATOS:</h3>
+  <dl>
+    <dt>NRO. DE REGISTRO:</dt><dd>DEMO-0001</dd>
+    <dt>FECHA DE EMISIÓN:</dt><dd>—</dd>
+    <dt>FECHA DE VENCIMIENTO:</dt><dd>—</dd>
+    <dt>MODALIDAD:</dt><dd>Ejemplo no oficial</dd>
+    <dt>ESTADO:</dt><dd><span class="status">DEMO – NO VERIFICADO</span></dd>
+  </dl>
+  <h3>USUARIO:</h3>
+  <dl>
+    <dt>NOMBRE:</dt><dd>Álvaro Aldair Mauricio Piedra</dd>
+    <dt>DNI:</dt><dd>******59</dd>
+  </dl>
+  <small>Esta ficha es únicamente una maqueta visual. No consulta bases de datos, no valida identidad ni licencias, y no está afiliada ni autorizada por SUCAMEC. Para verificar una licencia real, utiliza exclusivamente los canales oficiales de la entidad.</small>
+</section>
+</main>
+<footer>Ficha de demostración independiente</footer>
+</body>
+</html>
